@@ -3,7 +3,7 @@ Printer Recognizer
 
 ## Description
 
-This is a sample program which interacts with [Custom Vision](https://azure.microsoft.com/en-us/services/cognitive-services/custom-vision-service/) and recognizes what the printer vendor from a photo printer in.
+This is a sample program which interacts with [Custom Vision](https://azure.microsoft.com/en-us/services/cognitive-services/custom-vision-service/) and recognizes what the manufacturer(HP/Canon/Epson/Brother) of the printer in a photo.
 
 ## Requirement
 
