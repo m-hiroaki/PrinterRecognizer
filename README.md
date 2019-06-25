@@ -20,10 +20,14 @@ Options:
   -l|--local    Path to an image to be predicted
 ```
 
+### note
+Two environment variables `ENDPOINT` and `PREDICTION_KEY` are defined in `.env`.<br>
+To run this program, You need to set the prediction key for the custom vision project as `PREDICTION_KEY` (but it's secret...) and put the `.env` into same folder where `PrinterRecognizer` exists.
+
 ## Example
 
 ```
-$ PrinterRecognizer -l /sample/images/printer_image.jpg
+$ PrinterRecognizer -l ./assets/images/printer_image.jpg
 
 [Recognition Result]
 Canon    :  61%
