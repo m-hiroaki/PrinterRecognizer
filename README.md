@@ -20,6 +20,18 @@ Options:
   -l|--local    Path to an image to be predicted
 ```
 
+## Example
+
+```
+$ PrinterRecognizer -l /sample/images/printer_image.jpg
+
+[Recognition Result]
+Canon    :  61%
+Epson    :  35%
+HP       :   1%
+Brother  :   1%
+```
+
 ## Licence
 
 [MIT](https://github.com/tcnksm/tool/blob/master/LICENCE)
