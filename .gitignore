@@ -1,0 +1,6 @@
+bin/
+assets/
+obj/
+model/
+.vscode/
+.DS_Store
