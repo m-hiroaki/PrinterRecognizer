@@ -20,10 +20,6 @@ Options:
   -l|--local    Path to an image to be predicted
 ```
 
-### note
-Two environment variables `ENDPOINT` and `PREDICTION_KEY` are defined in `.env`.<br>
-To run this program, You need to set the prediction key for the custom vision project as `PREDICTION_KEY` (but it's secret...:cold_sweat:) and put the `.env` into same folder where `PrinterRecognizer` exists.
-
 ## Example
 
 ```
@@ -40,6 +36,10 @@ Epson    :  35%
 HP       :   1%
 Brother  :   1%
 ```
+
+### note
+Two environment variables `ENDPOINT` and `PREDICTION_KEY` are defined in `.env`.<br>
+To run this program, You need to set the prediction key for the custom vision project as `PREDICTION_KEY` (but it's secret...:cold_sweat:) and put the `.env` into same folder where `PrinterRecognizer` exists.
 
 ## Licence
 
