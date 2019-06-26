@@ -24,7 +24,7 @@ Options:
 
 ```
 $ git clone https://github.com/m-hiroaki/PrinterRecognizer.git
-$ cd PrinterRecognizer
+$ cd PrinterRecognizer/src
 $ dotnet publish -c Release -r <win-x86/win-x64/osx-x64>
 $ cp .env bin/Release/netcoreapp2.2/<win-x86/win-x64/osx-x64>/publish/
 $ cd bin/Release/netcoreapp2.2/<win-x86/win-x64/osx-x64>/publish/
