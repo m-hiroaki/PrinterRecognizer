@@ -5,11 +5,12 @@ using Microsoft.Extensions.CommandLineUtils;
 
 namespace PrinterRecognizer
 {
-    enum FileSource {
+    enum FileSource
+    {
         URL,
         LocalImage,
     }
-    
+
     class Program
     {
         static void Main(string[] args)
@@ -28,19 +29,18 @@ namespace PrinterRecognizer
 
             string file = string.Empty;
             string key = string.Empty;
-            try {
-                // Load environment variables
-                DotNetEnv.Env.Load();
-
+            try
+            {
                 FileSource type;
-                app.OnExecute(() => {
+                app.OnExecute(() =>
+                {
 
-                    if( localOption.HasValue() )
+                    if (localOption.HasValue())
                     {
                         file = localOption.Value();
                         type = FileSource.LocalImage;
                     }
-                    else if( urlOption.HasValue() )
+                    else if (urlOption.HasValue())
                     {
                         file = urlOption.Value();
                         type = FileSource.URL;
@@ -51,35 +51,32 @@ namespace PrinterRecognizer
                         return 0;
                     }
 
-                    // Get prediction key from .env
-                    key = DotNetEnv.Env.GetString("PREDICTION_KEY");
-
                     // run recognition process
-                    JArray result = RunPrinterRecognition(file, key, type).Result;
+                    JArray result = RunPrinterRecognition(file, type).Result;
 
                     // show recognition result on console
                     showRecognitionResult(result);
 
                     return 0;
                 });
-                
+
                 app.Execute(args);
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine("Oops. Failed to run recognition process...");
                 Console.WriteLine("Make sure you set correct option.");
                 app.ShowHelp();
-                
+
                 Console.WriteLine(e.ToString());
             }
         }
 
-        public static async Task<JArray> RunPrinterRecognition(string file, string key, FileSource type)
+        public static async Task<JArray> RunPrinterRecognition(string file, FileSource type)
         {
             // create recognizer
-            IRecognizer recognizer = RecongnizerFactory.CreateRecognizer(file, key, type);
+            IRecognizer recognizer = RecongnizerFactory.CreateRecognizer(file, type);
 
             return await recognizer.RunPrediction();
         }
@@ -92,7 +89,7 @@ namespace PrinterRecognizer
             }
 
             Console.WriteLine("[Recognition Result]");
-            foreach(JObject val in result)
+            foreach (JObject val in result)
             {
                 var prob = Double.Parse((string)val["probability"]);
                 Console.WriteLine("{0, -8} : {1, 3}%", (string)val["tagName"], new JValue(Math.Truncate(prob * 100.0)));

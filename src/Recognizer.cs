@@ -14,12 +14,12 @@ namespace PrinterRecognizer
 
     class RecongnizerFactory
     {
-        public static IRecognizer CreateRecognizer(string filepath, string key, FileSource type)
+        public static IRecognizer CreateRecognizer(string filepath, FileSource type)
         {
-            if( FileSource.URL == type ) 
-                return (IRecognizer)(new RecognizerFromUrl(filepath, key));
-            else if( FileSource.LocalImage == type ) 
-                return (IRecognizer)(new RecognizerFromLocal(filepath, key));
+            if (FileSource.URL == type)
+                return (IRecognizer)(new RecognizerFromUrl(filepath));
+            else if (FileSource.LocalImage == type)
+                return (IRecognizer)(new RecognizerFromLocal(filepath));
 
             return null;
         }
@@ -29,21 +29,21 @@ namespace PrinterRecognizer
     {
         // URL to an image to be predicted
         private string _url;
-        // Prediction-Key
-        private string _key;
 
-        public RecognizerFromUrl(string url, string key)
+        public RecognizerFromUrl(string url)
         {
             _url = url;
-            _key = key;
+            EnvHelper.LoadEnv();
         }
 
         public async Task<JArray> RunPrediction()
         {
             var client = new HttpClient();
 
+            // Get prediction key
+            var predictionkey = EnvHelper.Predictionkey;
             // Set the prediction key
-            client.DefaultRequestHeaders.Add("Prediction-Key", _key);
+            client.DefaultRequestHeaders.Add("Prediction-Key", predictionkey);
 
             JObject reqobj = new JObject();
             reqobj.Add("Url", new JValue(_url));
@@ -51,7 +51,7 @@ namespace PrinterRecognizer
             var content = new StringContent(reqobj.ToString(), Encoding.UTF8, "application/json");
 
             // Get endpoint url from .env
-            string endpoint = DotNetEnv.Env.GetString("ENDPOINT");
+            string endpoint = EnvHelper.Endpoint;
             HttpResponseMessage response;
             response = await client.PostAsync(endpoint + "/url", content);
 
@@ -60,7 +60,7 @@ namespace PrinterRecognizer
 
             // convert into json object
             JObject resobj = JObject.Parse(jsonres);
-          
+
             return (JArray)resobj["predictions"];
         }
     }
@@ -69,21 +69,21 @@ namespace PrinterRecognizer
     {
         // URL to an image to be predicted
         private string _filepath;
-        // Prediction-Key
-        private string _key;
 
-        public RecognizerFromLocal(string url, string key)
+        public RecognizerFromLocal(string url)
         {
             _filepath = url;
-            _key      = key;
+            EnvHelper.LoadEnv();
         }
 
         public async Task<JArray> RunPrediction()
         {
             var client = new HttpClient();
 
-            // Request headers
-            client.DefaultRequestHeaders.Add("Prediction-Key", _key);
+            // Get prediction key
+            var predictionkey = EnvHelper.Predictionkey;
+            // Set the prediction key
+            client.DefaultRequestHeaders.Add("Prediction-Key", predictionkey);
 
             // Request body. Try this sample with a locally stored image.
             byte[] byteData = GetImageAsByteArray(_filepath);
@@ -93,7 +93,7 @@ namespace PrinterRecognizer
             using (var content = new ByteArrayContent(byteData))
             {
                 // Get endpoint url from .env
-                string endpoint = DotNetEnv.Env.GetString("ENDPOINT");
+                string endpoint = EnvHelper.Endpoint;
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
                 response = await client.PostAsync(endpoint + "/image", content);
             }
@@ -103,7 +103,7 @@ namespace PrinterRecognizer
 
             // convert into json object
             JObject resobj = JObject.Parse(jsonres);
-          
+
             return (JArray)resobj["predictions"];
         }
 
