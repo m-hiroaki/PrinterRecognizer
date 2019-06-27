@@ -7,7 +7,7 @@ This is a sample program which interacts with [Custom Vision](https://azure.micr
 
 ## Requirement
 
-* .Net Core SDK 2.2
+* [.Net Core 2.2](https://dotnet.microsoft.com/download/dotnet-core/2.2)
 
 ## Usage
 
@@ -28,7 +28,7 @@ $ cd PrinterRecognizer/src
 $ dotnet publish -c Release -r <win-x86/win-x64/osx-x64>
 $ cp .env bin/Release/netcoreapp2.2/<win-x86/win-x64/osx-x64>/publish/
 $ cd bin/Release/netcoreapp2.2/<win-x86/win-x64/osx-x64>/publish/
-$ ./PrinterRecognizer -l path/to/imput/images/printer_image.jpg
+$ ./PrinterRecognizer -l path/to/input/images/printer_image.jpg
 
 [Recognition Result]
 Canon    :  61%
