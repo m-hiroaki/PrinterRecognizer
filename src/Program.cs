@@ -19,11 +19,11 @@ namespace PrinterRecognizer
             app.Name = nameof(PrinterRecognizer);
             app.HelpOption("-?|-h|--help");
 
-            var urlOption = app.Option("-u|--url",
+            var urlOption = app.Option("-u|--url <URL>",
                         "URL to an image to be predicted",
                         CommandOptionType.SingleValue);
 
-            var localOption = app.Option("-l|--local",
+            var localOption = app.Option("-l|--local <PATH>",
                         "Path to an image to be predicted",
                         CommandOptionType.SingleValue);
 

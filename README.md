@@ -15,9 +15,9 @@ This is a sample program which interacts with [Custom Vision](https://azure.micr
 Usage: PrinterRecognizer [options]
 
 Options:
-  -?|-h|--help  Show help information
-  -u|--url      URL to an image to be predicted
-  -l|--local    Path to an image to be predicted
+  -?|-h|--help       Show help information
+  -u|--url <URL>     URL to an image to be predicted
+  -l|--local <PATH>  Path to an image to be predicted
 ```
 
 ## Example
