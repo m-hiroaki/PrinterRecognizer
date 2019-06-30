@@ -19,6 +19,7 @@ Options:
   -u|--url <URL>     URL to an image to be predicted
   -l|--local <PATH>  Path to an image to be predicted
 ```
+Either `-u` or `-l` option should be specified.
 
 ## Example
 
